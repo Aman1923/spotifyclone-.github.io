@@ -83,7 +83,7 @@
       <script> 
       let playsong = document.getElementById('playingsong')
           console.log("welcome to spotify"); 
-          let audioelement  = new Audio("baby.mp3") ; 
+          let audioelement  = new Audio("1.mp3") ; 
          
       let masterplay = document.getElementById("masterplay");  
         let progressbar = document.getElementById("range") ; 
@@ -93,7 +93,7 @@
             if(audioelement.paused|| audioelement.currentTime<=0){  
                  let gif =    document.getElementById('gif');  
                  gif.style.opacity = 1; 
-                audioelement.play(); 
+                audioelement.play();   
          masterplay.classList.remove('fa-circle-play'); 
                masterplay.classList.add('fa-circle-pause')  }    
         else {  
