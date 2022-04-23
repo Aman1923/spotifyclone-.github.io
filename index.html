@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spotify clone </title> 
+    <link rel="stylesheet" href="spotify.css">
+   
+</head>
+<body>
+    <nav> 
+        
+<ul> 
+    <li class="brand"> <img src="spotify image_ccexpress.png" alt="image"> Spotify </li> 
+    <li class="home">Home </li>
+    <li class="about">About</li> 
+    <li class="premium">Premium</li> 
+    <li class="support">Support</li>
+    <li class="download">Download</li> 
+    <li class="signup">Sign Up </li>
+    <li class="login">Login</li>
+</ul>
+
+
+    </nav>  
+
+     
+    <div class="container"> 
+        <div class="songlist"> 
+            <h1> Best of All Time   </h1> 
+        </div> 
+
+  
+   
+        <div class="song">  
+            <img src="DJSnakeLetMeLoveYou.jpg" alt="">  
+         <span class="aman" > let me  love you (5.34)  <i  id="1" class=   "fa-1x songitemplay fa-solid  fa-circle-play"> </i></span>  
+         </div> 
+         <div class="song">  
+            <img src="dabya ni krde.jpg" alt="">  
+          <span class="aman" > Dabya ni krde (4.00)  <i id="2" class="fa-1x  songitemplay fa-solid fa-circle-play"> </i></span>  
+         </div> 
+         <div class="song">  
+            <img src="bahu kale ki.jpg" alt="">  
+          <span class="aman" > Struggler (3.34)  <i  id="3" class="fa-1x songitemplay fa-solid fa-circle-play"> </i></span >  
+         </div>
+         <div class="song">  
+            <img src="baby.jfif" alt="">  
+          <span class="aman" >Baby (2.40)  <i  id="4" class="fa-1x songitemplay fa-solid fa-circle-play"> </i></span>  
+         </div>
+         <div class="song">  
+            <img src="waalian.jfif" alt="">  
+          <span class="aman" > Waalian (4.34)  <i id="5"  class="fa-1x  songitemplay fa-solid fa-circle-play"> </i></span >  
+         </div> 
+         
+
+</div>  
+
+    <div class="bottom"> 
+   <input   type="range" name="range" id="range" min="0" max="100"  value="0" > 
+         <div class="icons">
+             
+            <i id="previous" class="fa-2x fa-solid fa-backward"></i>   
+            <i id="masterplay" class="fa-2x fa-solid  fa-circle-play"></i>   
+              
+            <i id="forward" class="fa-2x fa-solid fa-forward"></i>   
+           
+         </div>
+         <div class="songinfo"> 
+             <img id="gif" src="Nt6v.gif" alt="">  <span id="playingsong" class="aman ">  </span> 
+     
+        </div>
+    </div> 
+ 
+  
+    <script src="https://kit.fontawesome.com/3a10c35a14.js" crossorigin="anonymous"> 
+     
+    
+    
+    </script> 
+    
+      <script> 
+      let playsong = document.getElementById('playingsong')
+          console.log("welcome to spotify"); 
+          let audioelement  = new Audio("baby.mp3") ; 
+         
+      let masterplay = document.getElementById("masterplay");  
+        let progressbar = document.getElementById("range") ; 
+        masterplay.addEventListener("click" ,play) 
+        function play(){  
+
+            if(audioelement.paused|| audioelement.currentTime<=0){  
+                 let gif =    document.getElementById('gif');  
+                 gif.style.opacity = 1; 
+                audioelement.play(); 
+         masterplay.classList.remove('fa-circle-play'); 
+               masterplay.classList.add('fa-circle-pause')  }    
+        else {  
+            gif.style.opacity = 0 ; 
+             audioelement.pause(); 
+             masterplay.classList.remove('fa-circle-pause'); 
+               masterplay.classList.add('fa-circle-play')  
+        }
+        
+             
+        }    
+ 
+ let index = 0 ; 
+    audioelement.addEventListener("timeupdate" , time ) 
+        function time(){  
+         var progress = parseInt((audioelement.currentTime/audioelement.duration)*100);  
+         
+             progressbar.value = progress; 
+        } 
+       progressbar.addEventListener("change", change); 
+       function change(){  
+
+        audioelement.currentTime  = (audioelement.duration*progressbar.value)/100; 
+
+       }
+     
+       const makeAllPlays = ()=>{
+    Array.from(document.getElementsByClassName('songitemplay')).forEach((element)=>{
+        element.classList.remove('fa-circle-pause');
+        element.classList.add('fa-circle-play');
+    })
+}
+
+Array.from(document.getElementsByClassName('songitemplay')).forEach((element)=>{
+    element.addEventListener('click', (e)=>{ 
+        makeAllPlays();
+        index = parseInt(e.target.id);
+        e.target.classList.remove('fa-circle-play');
+        e.target.classList.add('fa-circle-pause'); 
+         audioelement.src= `${index}.mp3`; 
+     
+         
+         audioelement.play(); 
+         masterplay.classList.remove('fa-circle-play'); 
+         masterplay.classList.add('fa-circle-pause');  
+         
+    })
+})   
+     document.getElementById('forward').addEventListener('click', ()=>{ 
+            if(index>=5){  
+                
+                
+                 
+                index= 0 ; 
+                audioelement.src = `${index}.mp3`  
+                audioelement.play() 
+            }  
+               
+           else {    
+            masterplay.classList.remove('fa-circle-play'); 
+                masterplay.classList.add('fa-circle-pause');
+               gif.style.opacity = 1; 
+               index++ ;   
+               audioelement.src = `${index}.mp3` 
+               audioelement.play(); 
+               
+           }
+            
+     })  
+     document.getElementById('previous').addEventListener('click', ()=>{ 
+            if(index<=0){   
+         
+                 
+                
+                 
+                index= 5 ; 
+                audioelement.src = `${index}.mp3`  
+                audioelement.play() 
+            }  
+               
+           else {  
+                masterplay.classList.remove('fa-circle-play'); 
+                masterplay.classList.add('fa-circle-pause');
+                  gif.style.opacity = 1; 
+               index-- ;   
+               audioelement.src = `${index}.mp3` 
+               audioelement.play(); 
+               
+           }
+            
+     })
+      </script>
+
+</body> 
+</html>
